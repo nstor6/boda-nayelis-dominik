@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nayelis & Dominik · 9 de julio de 2027</title>
+  <meta name="description" content="Tenemos una historia que contar, un amor que celebrar y un sí, quiero que compartir contigo.">
+  <meta name="theme-color" content="#f8f4e9">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="config.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <section class="entrance" id="entrance" aria-label="Abre nuestra invitación">
+    <p class="eyebrow">UNA HISTORIA QUE CELEBRAR</p>
+    <p class="entry-names">Nayelis <i>&</i> Dominik</p>
+    <button id="open-invitation" class="envelope" aria-label="Abrir invitación">
+      <span class="letter"><span>¡Nos casamos!</span><small>09 · 07 · 2027</small></span>
+      <span class="envelope-front"></span><span class="flap"></span><span class="seal">N <i>&</i> D</span>
+    </button>
+    <p class="open-note">Toca el sello. Nuestra historia continúa contigo.</p>
+    <p class="eyebrow">OVIEDO · 9 DE JULIO DE 2027</p>
+  </section>
+  <main id="invitation" hidden>
+    <div class="topline"><span>N <i>&</i> D</span><button id="music-toggle" class="text-button" hidden aria-pressed="false">♫ Activar música</button></div>
+    <header class="hero">
+      <p class="eyebrow">EL SIGUIENTE CAPÍTULO DE NUESTRA HISTORIA</p>
+      <h1>¡Nos casamos!</h1>
+      <p class="names">Nayelis <i>&</i> Dominik</p>
+      <p class="intro">Tenemos una historia que contar, un amor que celebrar y un «sí, quiero» que compartir contigo.</p>
+      <div class="portrait" id="portrait"><span class="monogram">N <i>&</i> D</span><span class="portrait-caption">Una vida juntos.<br>Un nuevo capítulo.</span></div>
+      <button class="story-link" data-modal="story">Nuestra historia <span aria-hidden="true">↗</span></button>
+    </header>
+    <section class="date-card" aria-labelledby="date-title">
+      <p class="eyebrow" id="date-title">RESERVA ESTE DÍA</p>
+      <p class="wedding-date"><span>09</span><i>julio</i><span>2027</span></p>
+      <p class="date-place">Viernes · Oviedo, Asturias</p>
+      <div class="countdown" aria-label="Cuenta atrás hasta la ceremonia"><div><strong id="days">—</strong><span>días</span></div><div><strong id="hours">—</strong><span>horas</span></div><div><strong id="minutes">—</strong><span>minutos</span></div><div><strong id="seconds">—</strong><span>segundos</span></div></div>
+      <p id="countdown-note" class="small">Cada vez más cerca de nuestro «sí».</p>
+    </section>
+    <section class="details" aria-labelledby="details-title"><p class="eyebrow">TE ESPERAMOS</p><h2 id="details-title">Un día para recordar</h2><p>Toca cada detalle y descubre todo lo que hemos preparado.</p>
+      <div class="cards">
+        <button data-modal="ceremony"><span class="card-number">01</span><span class="card-icon" aria-hidden="true">⛪</span><span class="card-title">La ceremonia</span><span class="card-sub">El comienzo de nuestro sí</span><span class="card-open" aria-hidden="true">+</span></button>
+        <button data-modal="reception"><span class="card-number">02</span><span class="card-icon" aria-hidden="true">🥂</span><span class="card-title">La celebración</span><span class="card-sub">Brindemos por lo que viene</span><span class="card-open" aria-hidden="true">+</span></button>
+        <button data-modal="dress"><span class="card-number">03</span><span class="card-icon" aria-hidden="true">👗</span><span class="card-title">Dress code</span><span class="card-sub">Elegancia y mucho amor</span><span class="card-open" aria-hidden="true">+</span></button>
+        <button data-modal="gifts"><span class="card-number">04</span><span class="card-icon" aria-hidden="true">🎁</span><span class="card-title">Mesa de regalos</span><span class="card-sub">El mejor regalo eres tú</span><span class="card-open" aria-hidden="true">+</span></button>
+        <button data-modal="rsvp" class="rsvp-card"><span class="card-number">05</span><span class="card-icon" aria-hidden="true">♡</span><span class="card-title">¿Nos acompañas?</span><span class="card-sub">Confirma tu asistencia</span><span class="card-open" aria-hidden="true">+</span></button>
+        <button data-modal="contact"><span class="card-number">06</span><span class="card-icon" aria-hidden="true">✉</span><span class="card-title">Hablemos</span><span class="card-sub">Estamos a un mensaje</span><span class="card-open" aria-hidden="true">+</span></button>
+      </div>
+    </section>
+    <footer><span class="footer-mark">N <i>&</i> D</span><p>Gracias por formar parte de nuestra historia y por acompañarnos en uno de los días más importantes de nuestras vidas.</p><p class="small">Con todo nuestro amor,</p><p class="signature">Nayelis & Dominik</p><span class="eyebrow">09 · 07 · 2027</span></footer>
+  </main>
+  <dialog id="modal" aria-labelledby="modal-title"><button id="close-modal" class="close" aria-label="Cerrar ventana">×</button><div id="modal-content"></div></dialog>
+  <audio id="music" loop preload="none"></audio>
+</body>
+</html>
