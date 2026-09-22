@@ -68,8 +68,7 @@ a{color:var(--green)}
 .env-leaving .env-floor{opacity:0;pointer-events:none;transition:opacity .4s ease}
 .env-floor>*{position:relative;z-index:1}
 .open-note{font-style:italic;margin:6px auto 18px;font-size:1.1rem;max-width:290px}
-.js .env-seal{display:grid;place-content:center;left:50%;top:calc(var(--env-top) + var(--env-h) * .5);z-index:5;width:74px;height:74px;margin:-37px 0 0 -37px;padding:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#cdb06a,#a8873f);color:#fff9e9;border:3px double #e2cb8c;box-shadow:0 4px 9px #5d42264d;font-size:1.25rem;letter-spacing:.02em;white-space:nowrap;animation:breathe 2.6s ease-in-out infinite}
-.env-seal i{font-style:italic}
+.js .env-seal{left:50%;top:calc(var(--env-top) + var(--env-h) * .5);z-index:5;width:124px;height:124px;margin:-62px 0 0 -62px;padding:0;border-radius:50%;background:#000 url('assets/seal-dark.webp') center/cover;border:2px solid #c9a55a;box-shadow:0 6px 16px #00000055;animation:breathe 2.6s ease-in-out infinite}
 .env-open .env-seal{animation:none;cursor:default}
 
 /* Contenido */
