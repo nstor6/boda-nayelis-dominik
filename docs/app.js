@@ -1,5 +1,4 @@
 'use strict';
-document.documentElement.classList.add('js');
 const config = window.WEDDING;
 const $ = (id) => document.getElementById(id);
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -15,11 +14,40 @@ async function startMusic() { if (!config.music) return; try { await music.play(
 music.addEventListener('error', () => { musicToggle.hidden = true; });
 musicToggle.addEventListener('click', () => { if (music.paused) startMusic(); else { music.pause(); updateMusic(); } });
 
-$('open-invitation').addEventListener('click', () => {
-  $('open-invitation').disabled = true;
-  $('open-invitation').classList.add('open'); startMusic();
-  setTimeout(() => { $('entrance').hidden = true; $('invitation').hidden = false; const heading = document.querySelector('h1'); heading.tabIndex = -1; heading.focus({preventScroll:true}); window.scrollTo(0,0); }, reducedMotion ? 0 : 1300);
-});
+const root = document.documentElement;
+const hero = $('hero'); const envBack = document.querySelector('.env-back'); const seal = $('env-seal');
+const introNames = document.querySelector('.env-intro .entry-names');
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+function openEnvelope() {
+  if (root.classList.contains('env-open')) return;
+  root.classList.remove('env-sealed'); root.classList.add('env-open');
+  seal.setAttribute('aria-disabled', 'true'); seal.tabIndex = -1;
+  $('env-note').textContent = 'Desliza hacia abajo para sacar la invitación';
+  startMusic();
+}
+seal.addEventListener('click', openEnvelope);
+// La tarjeta sube con el scroll normal; cuando casi ha salido del sobre, el sobre cae más rápido que el scroll.
+function updateEnvelope() {
+  const scrolled = window.scrollY;
+  if (scrolled > 0) openEnvelope();
+  const envStyle = getComputedStyle(envBack);
+  const envTop = parseFloat(envStyle.top); const envHeight = parseFloat(envStyle.height);
+  const cardOut = hero.offsetHeight + 12 - envHeight * .3;
+  const maxDrop = window.innerHeight - envTop + 60;
+  root.style.setProperty('--flap-h', `${Math.max(0, Math.min(envHeight * .42, envTop - introNames.getBoundingClientRect().bottom - 12))}px`);
+  const drop = Math.min(maxDrop, Math.max(0, (scrolled - cardOut) * 2.2));
+  root.style.setProperty('--drop', `${drop}px`);
+  root.style.setProperty('--fade', String(Math.max(0, 1 - scrolled / 180)));
+  root.style.setProperty('--reveal', String(drop / maxDrop));
+  root.style.setProperty('--flap', String(Math.max(0, 1 - drop / maxDrop * 3)));
+  root.classList.toggle('env-gone', drop >= maxDrop);
+}
+let envFrame = 0;
+const scheduleEnvelope = () => { if (!envFrame) envFrame = requestAnimationFrame(() => { envFrame = 0; updateEnvelope(); }); };
+addEventListener('scroll', scheduleEnvelope, {passive:true});
+addEventListener('resize', scheduleEnvelope);
+updateEnvelope();
 
 if (config.photo) { const photo = new Image(); photo.alt = 'Nayelis y Dominik'; photo.onload = () => { $('portrait').classList.add('has-photo'); $('portrait').replaceChildren(photo); }; photo.src = config.photo; }
 
