@@ -49,8 +49,8 @@ a{color:var(--green)}
 .js .env-layer{display:block;position:fixed}
 .js .env-back,.js .env-front,.js .env-flap{top:var(--env-top);left:calc(50% - var(--env-w) / 2);width:var(--env-w);height:var(--env-h)}
 .js .env-back,.js .env-front{will-change:transform;transition:transform .8s var(--return),scale .6s var(--grow)}
-.js .env-seal{will-change:transform;transition:transform .8s var(--return)}
-.env-sealed .env-back,.env-sealed .env-front,.env-sealed .env-flap{scale:var(--env-closed)}
+.js .env-seal{will-change:transform;transition:transform .8s var(--return),scale .6s var(--grow)}
+.env-sealed .env-back,.env-sealed .env-front,.env-sealed .env-flap,.env-sealed .env-seal{scale:var(--env-closed)}
 .env-sealed .env-flap{translate:0 calc((1 - var(--env-closed)) * var(--env-h) / 2)}
 .env-leaving .env-back,.env-leaving .env-front,.env-leaving .env-seal{transform:translateY(calc(100svh - var(--env-top) + 40px)) rotate(7deg);transition:transform 1.05s var(--fall)}
 .js .env-intro{top:0;left:0;right:0;height:var(--env-top);z-index:2;display:flex;flex-direction:column;align-items:center;padding:max(36px,6svh) 20px 0;text-align:center;pointer-events:none;overflow:hidden}
@@ -73,7 +73,7 @@ a{color:var(--green)}
 .env-leaving .env-floor{opacity:0;pointer-events:none;transition:opacity .4s ease}
 .env-floor>*{position:relative;z-index:1}
 .open-note{font-style:italic;margin:6px auto 18px;font-size:1.1rem;max-width:290px}
-.js .env-seal{left:50%;top:calc(var(--env-top) + var(--env-h) * .5);z-index:5;width:104px;height:104px;margin:-52px 0 0 -52px;padding:0;border:0;border-radius:50%;background:url('assets/seal.webp') center/86% no-repeat,radial-gradient(circle at 35% 30%,#f3e6c4,#dcc58f 70%,#cdb275);box-shadow:0 3px 8px #5c4a3340,inset 0 0 0 2px #e9d7a6,inset 0 -3px 6px #a8873f40;animation:breathe 2.6s ease-in-out infinite}
+.js .env-seal{left:50%;top:calc(var(--env-top) + var(--env-h) * .5);z-index:5;width:calc(var(--env-w) * .27);height:calc(var(--env-w) * .27);margin:calc(var(--env-w) * -.135) 0 0 calc(var(--env-w) * -.135);padding:0;border:0;border-radius:50%;background:url('assets/seal.webp') center/86% no-repeat,radial-gradient(circle at 35% 30%,#f3e6c4,#dcc58f 70%,#cdb275);box-shadow:0 3px 8px #5c4a3340,inset 0 0 0 2px #e9d7a6,inset 0 -3px 6px #a8873f40;animation:breathe 2.6s ease-in-out infinite}
 .env-open .env-seal{animation:none;cursor:default}
 
 /* Contenido */
@@ -170,7 +170,7 @@ textarea{min-height:84px;resize:vertical}
 
 @keyframes hint{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
 @keyframes pulse{50%{transform:scale(1.12)}}
-@keyframes breathe{50%{scale:1.06}}
+@keyframes breathe{50%{transform:scale(1.06)}}
 /* A 90° la solapa está de canto: ahí pasa de delante del bolsillo a detrás de la tarjeta sin que se note */
 @keyframes flap-open{0%{z-index:4;transform:perspective(900px) rotateX(0deg);animation-timing-function:cubic-bezier(.5,0,.75,.5)}50%{z-index:4;transform:perspective(900px) rotateX(90deg);animation-timing-function:cubic-bezier(.25,.5,.5,1)}50.1%{z-index:1}100%{z-index:1;transform:perspective(900px) rotateX(180deg)}}
 
