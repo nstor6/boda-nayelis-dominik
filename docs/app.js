@@ -21,7 +21,7 @@ $('open-invitation').addEventListener('click', () => {
   setTimeout(() => { $('entrance').hidden = true; $('invitation').hidden = false; const heading = document.querySelector('h1'); heading.tabIndex = -1; heading.focus({preventScroll:true}); window.scrollTo(0,0); }, reducedMotion ? 0 : 1300);
 });
 
-if (config.photo) { const photo = new Image(); photo.alt = 'Nayelis y Dominik'; photo.onload = () => $('portrait').replaceChildren(photo); photo.src = config.photo; }
+if (config.photo) { const photo = new Image(); photo.alt = 'Nayelis y Dominik'; photo.onload = () => { $('portrait').classList.add('has-photo'); $('portrait').replaceChildren(photo); }; photo.src = config.photo; }
 
 function countdown(now = Date.now()) {
   const remaining = Math.max(0, new Date(config.ceremonyAt).getTime() - now);
