@@ -27,27 +27,29 @@ function openEnvelope() {
   startMusic();
 }
 seal.addEventListener('click', openEnvelope);
-// La tarjeta sube con el scroll normal; cuando casi ha salido del sobre, el sobre cae más rápido que el scroll.
+// La tarjeta sube con el scroll nativo; al salir casi entera, el sobre cae con su propia animación CSS.
+const intro = document.querySelector('.env-intro');
+let leaveAt = Infinity;
+function measureEnvelope() {
+  const envStyle = getComputedStyle(envBack);
+  const envTop = parseFloat(envStyle.top); const envHeight = parseFloat(envStyle.height);
+  leaveAt = hero.offsetHeight + 12 - envHeight * .3;
+  root.style.setProperty('--flap-h', `${Math.max(0, Math.min(envHeight * .42, envTop - introNames.getBoundingClientRect().bottom - 12))}px`);
+}
 function updateEnvelope() {
   const scrolled = window.scrollY;
   if (scrolled > 0) openEnvelope();
-  const envStyle = getComputedStyle(envBack);
-  const envTop = parseFloat(envStyle.top); const envHeight = parseFloat(envStyle.height);
-  const cardOut = hero.offsetHeight + 12 - envHeight * .3;
-  const maxDrop = window.innerHeight - envTop + 60;
-  root.style.setProperty('--flap-h', `${Math.max(0, Math.min(envHeight * .42, envTop - introNames.getBoundingClientRect().bottom - 12))}px`);
-  const drop = Math.min(maxDrop, Math.max(0, (scrolled - cardOut) * 2.2));
-  root.style.setProperty('--drop', `${drop}px`);
-  root.style.setProperty('--fade', String(Math.max(0, 1 - scrolled / 180)));
-  root.style.setProperty('--reveal', String(drop / maxDrop));
-  root.style.setProperty('--flap', String(Math.max(0, 1 - drop / maxDrop * 3)));
-  root.classList.toggle('env-gone', drop >= maxDrop);
+  intro.style.opacity = String(Math.max(0, 1 - scrolled / 180));
+  const leaving = root.classList.contains('env-leaving');
+  if (!leaving && scrolled > leaveAt) root.classList.add('env-leaving');
+  else if (leaving && scrolled < leaveAt - 60) root.classList.remove('env-leaving');
 }
 let envFrame = 0;
 const scheduleEnvelope = () => { if (!envFrame) envFrame = requestAnimationFrame(() => { envFrame = 0; updateEnvelope(); }); };
 addEventListener('scroll', scheduleEnvelope, {passive:true});
-addEventListener('resize', scheduleEnvelope);
-updateEnvelope();
+addEventListener('resize', () => { measureEnvelope(); scheduleEnvelope(); });
+measureEnvelope(); updateEnvelope();
+document.fonts?.ready.then(() => { measureEnvelope(); updateEnvelope(); });
 
 if (config.photo) { const photo = new Image(); photo.alt = 'Nayelis y Dominik'; photo.onload = () => { $('portrait').classList.add('has-photo'); $('portrait').replaceChildren(photo); }; photo.src = config.photo; }
 
