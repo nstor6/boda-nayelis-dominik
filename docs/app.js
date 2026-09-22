@@ -16,7 +16,6 @@ musicToggle.addEventListener('click', () => { if (music.paused) startMusic(); el
 
 const root = document.documentElement;
 const hero = $('hero'); const envBack = document.querySelector('.env-back'); const seal = $('env-seal');
-const introNames = document.querySelector('.env-intro .entry-names');
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 function openEnvelope() {
@@ -32,9 +31,8 @@ const intro = document.querySelector('.env-intro');
 let leaveAt = Infinity;
 function measureEnvelope() {
   const envStyle = getComputedStyle(envBack);
-  const envTop = parseFloat(envStyle.top); const envHeight = parseFloat(envStyle.height);
+  const envHeight = parseFloat(envStyle.height);
   leaveAt = hero.offsetHeight + 12 - envHeight * .3;
-  root.style.setProperty('--flap-h', `${Math.max(0, Math.min(envHeight * .42, envTop - introNames.getBoundingClientRect().bottom - 12))}px`);
 }
 function updateEnvelope() {
   const scrolled = window.scrollY;
