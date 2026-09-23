@@ -2,6 +2,7 @@
 window.WEDDING = {
   ceremonyAt: '2027-07-09T17:30:00+02:00', // Hora de verano de Oviedo.
   ceremonyTime: '17:30',
+  arrivalTime: '17:00', // Hora a la que pedimos estar en la iglesia.
   ceremonyProvisional: true,
   receptionTime: '18:30',
   photo: '', // Ejemplo: 'assets/pareja.jpg'. Sin foto se muestra el monograma.
